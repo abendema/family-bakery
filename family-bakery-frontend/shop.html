@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop | Family Bakery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon_io/favicon.ico">
+    <link rel="stylesheet" href="styles/general.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/shop.css" />
+    <link rel="stylesheet" href="styles/footer.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html"
+        ><span class="brand-mark"><i class="fa-solid fa-wheat-awn"></i></span
+        ><span>Family <b>Bakery</b></span></a
+      ><button
+        class="menu-toggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav class="main-nav">
+        <a href="index.html">Home</a><a href="index.html#about">About</a
+        ><a class="active" href="shop.html">Shop</a
+        ><a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a class="account-link" href="login.html"
+          ><i class="fa-regular fa-user"></i><span>Account</span></a
+        ><a class="cart-link" href="cart.html"
+          ><i class="fa-solid fa-bag-shopping"></i><span>Cart</span
+          ><span class="cart-count">0</span></a
+        >
+      </div>
+    </header>
+    <main class="shop-main">
+      <section class="shop-heading">
+        <span class="eyebrow">The good stuff</span>
+        <h1>Our bakery shop</h1>
+        <p>Find something lovely, freshly made and ready to enjoy.</p>
+      </section>
+      <section class="shop-toolbar">
+        <div class="category-filters" aria-label="Filter products">
+          <button class="filter-btn active" data-category="all">
+            All bakes</button
+          ><button class="filter-btn" data-category="breads">Breads</button
+          ><button class="filter-btn" data-category="bagels">Bagels</button
+          ><button class="filter-btn" data-category="cookies">Cookies</button
+          ><button class="filter-btn" data-category="pastries">Pastries</button>
+        </div>
+        <div class="shop-controls">
+          <label class="search-box"
+            ><i class="fa-solid fa-magnifying-glass"></i
+            ><input
+              id="product-search"
+              type="search"
+              placeholder="Search the bakery..."
+              aria-label="Search products" /></label
+          ><label class="sort-select"
+            ><span class="sr-only">Sort products</span
+            ><select id="product-sort">
+              <option value="featured">Sort: Featured</option>
+              <option value="price-low">Price: Low to high</option>
+              <option value="price-high">Price: High to low</option>
+              <option value="popular">Most popular</option>
+            </select></label
+          >
+        </div>
+      </section>
+      <p class="results-count" id="results-count" aria-live="polite"></p>
+      <section
+        class="product-grid"
+        id="product-grid"
+        aria-live="polite"
+      ></section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-top">
+        <a class="brand brand-footer" href="index.html"
+          ><span class="brand-mark"><i class="fa-solid fa-wheat-awn"></i></span
+          ><span>Family <b>Bakery</b></span></a
+        >
+        <p>Good things take time. Great bread takes flour.</p>
+        <div class="footer-links">
+          <a href="index.html">Home</a><a href="index.html#about">Our story</a
+          ><a href="index.html#contact">Contact</a
+          ><a href="login.html">Account</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Family Bakery.</span
+        ><span>Made with care, served fresh.</span>
+      </div>
+    </footer>
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script src="scripts/products.js"></script>
+    <script src="scripts/common.js"></script>
+    <script src="scripts/shop.js"></script>
+  </body>
+</html>

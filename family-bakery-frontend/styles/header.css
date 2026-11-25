@@ -1,0 +1,118 @@
+.site-header {
+  height: 78px;
+  padding: 0 clamp(20px, 5vw, 76px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  background: rgba(40, 35, 31, 0.96);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--serif);
+  font-size: 20px;
+  white-space: nowrap;
+}
+.brand b {
+  font-weight: 700;
+  color: #d7b18f;
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(215, 177, 143, 0.6);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #d7b18f;
+  font-size: 15px;
+}
+.main-nav,
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.main-nav a,
+.header-actions a {
+  font-size: 12px;
+  color: #e8e2dc;
+  transition: color 0.2s;
+}
+.main-nav a:hover,
+.main-nav a.active,
+.header-actions a:hover,
+.header-actions a.active {
+  color: #d7b18f;
+}
+.header-actions {
+  gap: 20px;
+}
+.header-actions a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cart-count {
+  display: grid;
+  place-items: center;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: 20px;
+  background: var(--clay);
+  color: white;
+  font-size: 10px;
+}
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  color: white;
+  font-size: 20px;
+}
+@media (max-width: 760px) {
+  .site-header {
+    height: 70px;
+    gap: 12px;
+  }
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    padding: 18px 24px;
+    background: #302a25;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .main-nav.open {
+    display: flex;
+  }
+  .header-actions {
+    gap: 12px;
+  }
+  .header-actions a span:not(.cart-count) {
+    display: none;
+  }
+  .brand {
+    font-size: 18px;
+  }
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+  }
+}

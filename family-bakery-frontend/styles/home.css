@@ -1,0 +1,339 @@
+.hero {
+  min-height: 650px;
+  height: calc(100vh - 78px);
+  max-height: 850px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 70px clamp(28px, 11vw, 160px);
+  overflow: hidden;
+  color: white;
+  background: #3c3028 url("../assets/bread.jpg") center 54% / cover no-repeat;
+}
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(28, 24, 21, 0.88) 0%,
+    rgba(28, 24, 21, 0.63) 45%,
+    rgba(28, 24, 21, 0.08) 100%
+  );
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 570px;
+}
+.hero .eyebrow {
+  color: #e2bd9c;
+}
+.hero h1,
+.intro h2,
+.contact-copy h2 {
+  font: 600 clamp(44px, 6vw, 76px)/1.08 var(--serif);
+  letter-spacing: -0.04em;
+  margin: 20px 0;
+}
+.hero h1 em,
+.intro h2 em,
+.contact-copy h2 em,
+.auth-aside h1 em {
+  color: #d7b18f;
+  font-weight: 500;
+}
+.hero-content > p {
+  max-width: 450px;
+  color: #e4ded7;
+  font-size: 15px;
+  line-height: 1.9;
+  margin: 0 0 28px;
+}
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hero-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 58px;
+  color: #e5d8cb;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.note-line {
+  width: 42px;
+  height: 1px;
+  background: #d7b18f;
+}
+.hero-badge {
+  position: absolute;
+  right: 10%;
+  bottom: 12%;
+  width: 112px;
+  height: 112px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  font: 12px/1.4 var(--serif);
+}
+.hero-badge i {
+  color: #e2bd9c;
+  margin-bottom: 7px;
+}
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 9%;
+}
+.intro-image {
+  position: relative;
+}
+.intro-image img {
+  width: 100%;
+  height: 470px;
+  object-fit: cover;
+}
+.image-caption {
+  position: absolute;
+  right: -22px;
+  bottom: 26px;
+  background: var(--clay);
+  color: white;
+  padding: 14px 20px;
+  font: italic 14px var(--serif);
+}
+.intro-copy {
+  max-width: 480px;
+}
+.intro h2,
+.contact-copy h2 {
+  font-size: clamp(38px, 4vw, 54px);
+  color: var(--ink);
+  margin: 16px 0 22px;
+}
+.intro h2 em,
+.contact-copy h2 em {
+  color: var(--clay);
+}
+.intro-copy p {
+  color: var(--muted);
+  line-height: 1.95;
+  margin-bottom: 17px;
+}
+.intro-copy .text-link {
+  margin-top: 15px;
+}
+.featured-section {
+  background: var(--cream);
+  padding: 95px clamp(24px, 7vw, 100px);
+  text-align: center;
+}
+.section-heading {
+  margin: 0 auto 45px;
+}
+.section-heading h2 {
+  font: 600 clamp(34px, 4vw, 48px) var(--serif);
+  margin: 8px 0;
+}
+.section-heading p {
+  color: var(--muted);
+  margin: 0;
+}
+.featured-grid {
+  max-width: 1180px;
+  margin: 0 auto 42px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  text-align: left;
+}
+.feature-card {
+  background: white;
+}
+.feature-card > a {
+  display: block;
+  overflow: hidden;
+}
+.feature-card img {
+  width: 100%;
+  height: 245px;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.feature-card:hover img {
+  transform: scale(1.04);
+}
+.feature-card > div {
+  padding: 23px 24px 27px;
+}
+.feature-card > div > span {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--clay);
+  font-weight: 700;
+}
+.feature-card h3 {
+  font: 600 24px var(--serif);
+  margin: 8px 0;
+}
+.feature-card p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 17px;
+}
+.promise {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 65px max(7vw, 25px);
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.promise > div {
+  padding: 0 15px;
+}
+.promise i {
+  font-size: 24px;
+  color: var(--clay);
+}
+.promise h3 {
+  font: 600 19px var(--serif);
+  margin: 12px 0 5px;
+}
+.promise p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+}
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+}
+.contact-copy {
+  padding: 85px clamp(30px, 9vw, 125px);
+}
+.contact-copy h2 {
+  font-size: clamp(36px, 4vw, 50px);
+}
+.contact-copy > p {
+  color: var(--muted);
+  max-width: 430px;
+}
+.contact-list {
+  margin: 27px 0;
+}
+.contact-list p {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  color: #5e5852;
+  font-size: 13px;
+}
+.contact-list i {
+  width: 18px;
+  color: var(--clay);
+}
+.hours {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+.hours b {
+  color: var(--ink);
+}
+.contact-art {
+  background:
+    linear-gradient(rgba(43, 36, 30, 0.5), rgba(43, 36, 30, 0.7)),
+    url("../assets/breads.jpg") center/cover;
+  display: grid;
+  place-items: center;
+}
+.contact-art-inner {
+  width: 230px;
+  height: 230px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  font: italic 19px/1.5 var(--serif);
+}
+.contact-art-inner i {
+  font-size: 34px;
+  color: #e3bd9b;
+  margin-bottom: 14px;
+}
+@media (max-width: 800px) {
+  .hero {
+    height: auto;
+    min-height: 620px;
+    padding: 75px 28px;
+  }
+  .hero-badge {
+    right: 7%;
+    bottom: 6%;
+    width: 90px;
+    height: 90px;
+    font-size: 10px;
+  }
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 42px;
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .intro-image img {
+    height: 360px;
+  }
+  .image-caption {
+    right: 0;
+  }
+  .featured-grid {
+    grid-template-columns: 1fr;
+    max-width: 470px;
+  }
+  .feature-card img {
+    height: 260px;
+  }
+  .promise {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .contact-section {
+    grid-template-columns: 1fr;
+  }
+  .contact-art {
+    min-height: 320px;
+  }
+}
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 48px;
+  }
+  .hero-note {
+    margin-top: 40px;
+  }
+  .hero-badge {
+    display: none;
+  }
+  .intro-image img {
+    height: 290px;
+  }
+  .contact-copy {
+    padding: 65px 26px;
+  }
+}
