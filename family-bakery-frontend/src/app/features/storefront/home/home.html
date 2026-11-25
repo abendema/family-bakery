@@ -1,0 +1,223 @@
+<main>
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-shade"></div>
+
+    <div class="hero-content">
+      <span class="eyebrow">Baked fresh, shared with love</span>
+
+      <h1>
+        A little warmth<br />
+        <em>in every bite.</em>
+      </h1>
+
+      <p>
+        Slow mornings, golden crusts and the comforting smell of something fresh from the oven. Find
+        your new favourite.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="button button-primary" routerLink="/shop">
+          Shop now <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+        <a class="button button-outline" routerLink="/" fragment="about"> Learn more </a>
+      </div>
+
+      <div class="hero-note">
+        <span class="note-line"></span>
+        Made fresh every single day
+      </div>
+    </div>
+
+    <div class="hero-badge">
+      <i class="fa-solid fa-heart"></i>
+      <span>Made with<br />goodness</span>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="intro section-wrap" id="about">
+    <div class="intro-image">
+      <img src="/assets/bread.png" alt="Fresh artisan bread on a bakery table" />
+
+      <span class="image-caption"> From our oven to your table </span>
+    </div>
+
+    <div class="intro-copy">
+      <span class="eyebrow">A family tradition</span>
+
+      <h2>
+        Good food brings<br />
+        <em>people together.</em>
+      </h2>
+
+      <p>
+        At Family Bakery, we believe the best things are made with patience, care and a little flour
+        on the counter. We make comforting classics with quality ingredients and the kind of care
+        you can taste.
+      </p>
+
+      <p>
+        Whether it's your everyday loaf or a treat for a special moment, there's always something
+        warm waiting for you.
+      </p>
+
+      <a class="text-link" routerLink="/shop">
+        Explore our bakery
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS SECTION -->
+  <section class="featured-section">
+    <div class="section-heading">
+      <span class="eyebrow">A few favourites</span>
+
+      <h2>Fresh from the oven</h2>
+
+      <p>Small-batch bakes made to brighten your day.</p>
+    </div>
+
+    <div class="featured-grid">
+      <article class="feature-card">
+        <a routerLink="/shop" [queryParams]="{ category: 'breads' }">
+          <img src="/assets/sup-bread.jpg" alt="Golden artisan bread" />
+        </a>
+
+        <div>
+          <span>01 / BAKED DAILY</span>
+
+          <h3>Artisan breads</h3>
+
+          <p>Golden crusts, soft centres and slow-made goodness.</p>
+
+          <a routerLink="/shop" [queryParams]="{ category: 'breads' }" class="text-link">
+            Shop breads
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <a routerLink="/shop" [queryParams]="{ category: 'bagels' }">
+          <img src="/assets/bagels.jpg" alt="Fresh poppy seed bagels" />
+        </a>
+
+        <div>
+          <span>02 / A MORNING FAVOURITE</span>
+
+          <h3>Fresh bagels</h3>
+
+          <p>Chewy, satisfying and ready for your favourite topping.</p>
+
+          <a routerLink="/shop" [queryParams]="{ category: 'bagels' }" class="text-link">
+            Shop bagels
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <a routerLink="/shop" [queryParams]="{ category: 'cookies' }">
+          <img src="/assets/cookies1.jpg" alt="Chocolate cookies" />
+        </a>
+
+        <div>
+          <span>03 / A LITTLE TREAT</span>
+
+          <h3>Sweet moments</h3>
+
+          <p>Thoughtful little treats for the sweetest breaks.</p>
+
+          <a routerLink="/shop" [queryParams]="{ category: 'cookies' }" class="text-link">
+            Shop cookies
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <a class="button button-dark" routerLink="/shop">
+      View all products
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </section>
+
+  <!-- PROMISE SECTION -->
+  <section class="promise">
+    <div>
+      <i class="fa-solid fa-wheat-awn"></i>
+
+      <h3>Quality ingredients</h3>
+
+      <p>Simple ingredients, thoughtfully chosen.</p>
+    </div>
+
+    <div>
+      <i class="fa-regular fa-sun"></i>
+
+      <h3>Fresh every day</h3>
+
+      <p>Made in small batches for freshness.</p>
+    </div>
+
+    <div>
+      <i class="fa-solid fa-hands-holding-circle"></i>
+
+      <h3>Made with care</h3>
+
+      <p>A little extra love in every bake.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+
+  <section class="contact-section" id="contact">
+    <div class="contact-copy">
+      <span class="eyebrow">Come say hello</span>
+
+      <h2>
+        Your neighbourhood<br />
+        <em>bakery awaits.</em>
+      </h2>
+
+      <p>Questions, special requests or just want to talk bread? We'd love to hear from you.</p>
+
+      <div class="contact-list">
+        <p>
+          <i class="fa-solid fa-location-dot"></i>
+          Bakery address coming soon.
+        </p>
+
+        <p>
+          <i class="fa-solid fa-phone"></i>
+          Phone number coming soon.
+        </p>
+
+        <p>
+          <i class="fa-regular fa-envelope"></i>
+          hello@familybakery.com
+        </p>
+      </div>
+
+      <p class="hours">
+        <b>Opening hours</b><br />
+        Monday - Saturday: 8:00 AM - 6:00 PM<br />
+        Sunday: Closed
+      </p>
+    </div>
+
+    <div class="contact-art">
+      <div class="contact-art-inner">
+        <i class="fa-solid fa-bread-slice"></i>
+
+        <span>
+          Freshly baked<br />
+          for your everyday.
+        </span>
+      </div>
+    </div>
+  </section>
+</main>

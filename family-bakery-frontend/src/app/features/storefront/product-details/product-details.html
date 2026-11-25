@@ -1,0 +1,93 @@
+@if (product) {
+  <main class="product-details-page">
+    <div class="product-details-container">
+      <!-- Back to Shop -->
+      <a routerLink="/shop" class="back-to-shop">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Shop
+      </a>
+
+      <div class="product-details-content">
+        <!-- Product Image -->
+        <div class="product-details-image">
+          <img [src]="product.image" [alt]="product.name" />
+
+          @if (product.tag) {
+            <span class="product-tag">
+              {{ product.tag }}
+            </span>
+          }
+        </div>
+
+        <!-- Product Information -->
+        <div class="product-details-info">
+          <span class="product-category">
+            {{ product.category }}
+          </span>
+
+          <h1>{{ product.name }}</h1>
+
+          <p class="product-price">
+            {{ product.price | currency: 'USD' }}
+          </p>
+
+          <p class="product-description">
+            {{ product.description }}
+          </p>
+
+          <!-- Quantity Selector -->
+          <div class="quantity-section">
+            <label for="quantity">Quantity</label>
+
+            <div class="quantity-controls">
+              <button
+                type="button"
+                class="quantity-button"
+                aria-label="Decrease quantity"
+                (click)="decreaseQuantity()"
+              >
+                <i class="fa-solid fa-minus"></i>
+              </button>
+
+              <input
+                id="quantity"
+                type="number"
+                min="1"
+                max="20"
+                [value]="quantity"
+                (change)="onQuantityChange($event)"
+              />
+
+              <button
+                type="button"
+                class="quantity-button"
+                aria-label="Increase quantity"
+                (click)="increaseQuantity()"
+              >
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Add to Cart -->
+          <button type="button" class="add-to-bag-button" (click)="addToBag()">
+            <i class="fa-solid fa-bag-shopping"></i>
+            Add to Bag
+          </button>
+
+          <p class="product-note">Freshly prepared with care by our bakery.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+} @else {
+  <main class="product-not-found">
+    <i class="fa-solid fa-bread-slice"></i>
+
+    <h1>Product Not Found</h1>
+
+    <p>Sorry, we couldn't find the product you're looking for.</p>
+
+    <a routerLink="/shop" class="back-to-shop-button"> Return to Shop </a>
+  </main>
+}

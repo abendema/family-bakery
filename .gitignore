@@ -1,16 +1,21 @@
-# Dependencies
+# Node
 node_modules/
+npm-debug.log
+yarn-error.log
 
-# Python environments
+# Dependency folders
 .venv/
 venv/
 
 # Build output
+target/
 dist/
 build/
-target/
+tmp/
+out-tsc/
+bazel-out/
 
-# Cache
+# Python cache
 __pycache__/
 *.pyc
 .pytest_cache/
@@ -23,3 +28,32 @@ __pycache__/
 # Operating system files
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
+
+# Miscellaneous
+.angular/cache/
+.sass-cache/
+connect.lock/
+coverage/
+libpeerconnection.log/
+testem.log
+typings/
+__screenshots__/

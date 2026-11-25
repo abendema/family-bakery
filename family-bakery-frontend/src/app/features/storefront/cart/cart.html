@@ -1,0 +1,174 @@
+<main class="cart-page">
+
+  <div class="cart-container">
+
+    <!-- Page Heading -->
+    <div class="cart-heading">
+      <span class="section-label">Your selection</span>
+      <h1>Shopping Bag</h1>
+      <p>Everything you've picked, freshly prepared with care.</p>
+    </div>
+
+    @if (cartItems().length > 0) {
+
+      <div class="cart-layout">
+
+        <!-- Cart Items -->
+        <section class="cart-items-section">
+
+          <div class="cart-items-header">
+            <h2>Your Items ({{ totalItems() }})</h2>
+
+            <button
+              type="button"
+              class="clear-cart-button"
+              (click)="clearCart()"
+            >
+              Clear Bag
+            </button>
+          </div>
+
+          @for (item of cartItems(); track item.product.id) {
+
+            <article class="cart-item">
+
+              <!-- Product Image -->
+              <div class="cart-item-image">
+                <img
+                  [src]="item.product.image"
+                  [alt]="item.product.name"
+                >
+              </div>
+
+              <!-- Product Information -->
+              <div class="cart-item-info">
+
+                <span class="cart-item-category">
+                  {{ item.product.category }}
+                </span>
+
+                <h3>{{ item.product.name }}</h3>
+
+                <p class="cart-item-description">
+                  {{ item.product.description }}
+                </p>
+
+                <button
+                  type="button"
+                  class="remove-item-button"
+                  (click)="removeItem(item.product.id)"
+                >
+                  <i class="fa-regular fa-trash-can"></i>
+                  Remove
+                </button>
+
+              </div>
+
+              <!-- Quantity and Price -->
+              <div class="cart-item-actions">
+
+                <span class="cart-item-price">
+                  {{ item.product.price | currency:'USD' }}
+                </span>
+
+                <div class="cart-quantity-controls">
+
+                  <button
+                    type="button"
+                    aria-label="Decrease quantity"
+                    (click)="decreaseQuantity(item.product.id, item.quantity)"
+                  >
+                    <i class="fa-solid fa-minus"></i>
+                  </button>
+
+                  <span>{{ item.quantity }}</span>
+
+                  <button
+                    type="button"
+                    aria-label="Increase quantity"
+                    (click)="increaseQuantity(item.product.id, item.quantity)"
+                  >
+                    <i class="fa-solid fa-plus"></i>
+                  </button>
+
+                </div>
+
+                <span class="cart-item-total">
+                  {{ item.product.price * item.quantity | currency:'USD' }}
+                </span>
+
+              </div>
+
+            </article>
+
+          }
+
+          <a routerLink="/shop" class="continue-shopping">
+            <i class="fa-solid fa-arrow-left"></i>
+            Continue Shopping
+          </a>
+
+        </section>
+
+        <!-- Order Summary -->
+        <aside class="cart-summary">
+
+          <h2>Order Summary</h2>
+
+          <div class="summary-row">
+            <span>Items ({{ totalItems() }})</span>
+            <span>{{ subtotal() | currency:'USD' }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>Calculated at checkout</span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-total">
+            <span>Subtotal</span>
+            <span>{{ subtotal() | currency:'USD' }}</span>
+          </div>
+
+          <a routerLink="/checkout" class="checkout-button">
+            Proceed to Checkout
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+
+          <p class="checkout-note">
+            Shipping and any applicable taxes will be calculated during checkout.
+          </p>
+
+        </aside>
+
+      </div>
+
+    } @else {
+
+      <!-- Empty Cart -->
+      <section class="empty-cart">
+
+        <div class="empty-cart-icon">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </div>
+
+        <h2>Your bag is empty</h2>
+
+        <p>
+          Looks like you haven't picked anything delicious yet.
+          Explore our bakery and find something lovely.
+        </p>
+
+        <a routerLink="/shop" class="shop-now-button">
+          Explore Our Shop
+        </a>
+
+      </section>
+
+    }
+
+  </div>
+
+</main>

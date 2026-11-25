@@ -1,0 +1,114 @@
+<main class="auth-main">
+  <section class="auth-card">
+    <!-- Left Side -->
+    <div class="auth-aside">
+      <i class="fa-solid fa-wheat-awn"></i>
+
+      <span class="eyebrow">Welcome back</span>
+
+      <h1>
+        There's always<br />
+        <em>room at our table.</em>
+      </h1>
+
+      <p>Sign in to make your next bakery visit a little easier.</p>
+    </div>
+
+    <!-- Login Form -->
+    <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <span class="eyebrow">Your account</span>
+
+      <h2>Log in</h2>
+
+      <p class="form-intro">Good to see you again.</p>
+
+      <!-- Email -->
+      <label [class.invalid]="loginForm.controls.email.invalid && loginForm.controls.email.touched">
+        Email address
+
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+        />
+
+        <small class="field-error">
+          @if (loginForm.controls.email.touched && loginForm.controls.email.hasError('required')) {
+            Please enter your email address.
+          }
+
+          @if (loginForm.controls.email.touched && loginForm.controls.email.hasError('email')) {
+            Please enter a valid email address.
+          }
+        </small>
+      </label>
+
+      <!-- Password -->
+      <label
+        [class.invalid]="loginForm.controls.password.invalid && loginForm.controls.password.touched"
+      >
+        Password
+
+        <div class="password-wrap">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+          />
+
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePassword()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+          >
+            <i [class]="showPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'"></i>
+          </button>
+        </div>
+
+        <small class="field-error">
+          @if (
+            loginForm.controls.password.touched && loginForm.controls.password.hasError('required')
+          ) {
+            Please enter your password.
+          }
+
+          @if (
+            loginForm.controls.password.touched && loginForm.controls.password.hasError('minlength')
+          ) {
+            Password must be at least 8 characters.
+          }
+        </small>
+      </label>
+
+      <!-- Forgot Password -->
+      <div class="form-row">
+        <a routerLink="/forgot-password">Forgot password?</a>
+      </div>
+
+      <!-- Submit -->
+      <button class="button button-primary submit-button" type="submit">
+        Log in
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <p class="form-foot">
+        New to Family Bakery?
+        <a routerLink="/register">Create an account</a>
+      </p>
+
+      <p class="info-note">Authentication is handled by the future backend.</p>
+
+      <div
+        class="form-message"
+        [class.error]="statusType === 'error'"
+        [class.success]="statusType === 'success'"
+        aria-live="polite"
+      >
+        {{ statusMessage }}
+      </div>
+    </form>
+  </section>
+</main>

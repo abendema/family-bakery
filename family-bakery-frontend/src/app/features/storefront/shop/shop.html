@@ -1,0 +1,108 @@
+<main class="shop-main">
+  <!-- Shop heading -->
+  <section class="shop-heading">
+    <span class="eyebrow">The good stuff</span>
+
+    <h1>Our bakery shop</h1>
+
+    <p>Find something lovely, freshly made and ready to enjoy.</p>
+  </section>
+
+  <!-- Shop toolbar -->
+  <section class="shop-toolbar">
+    <!-- Category filters -->
+    <div class="category-filters" aria-label="Filter products">
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="selectedCategory === 'all'"
+        (click)="selectCategory('all')"
+      >
+        All bakes
+      </button>
+
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="selectedCategory === 'breads'"
+        (click)="selectCategory('breads')"
+      >
+        Breads
+      </button>
+
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="selectedCategory === 'bagels'"
+        (click)="selectCategory('bagels')"
+      >
+        Bagels
+      </button>
+
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="selectedCategory === 'cookies'"
+        (click)="selectCategory('cookies')"
+      >
+        Cookies
+      </button>
+
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="selectedCategory === 'pastries'"
+        (click)="selectCategory('pastries')"
+      >
+        Pastries
+      </button>
+    </div>
+
+    <!-- Search and sorting -->
+    <div class="shop-controls">
+      <label class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+          type="search"
+          placeholder="Search the bakery..."
+          aria-label="Search products"
+          [value]="searchTerm"
+          (input)="onSearch($event)"
+        />
+      </label>
+
+      <label class="sort-select">
+        <span class="sr-only">Sort products</span>
+
+        <select [value]="sortOption" (change)="onSortChange($event)">
+          <option value="featured">Sort: Featured</option>
+          <option value="price-low">Price: Low to high</option>
+          <option value="price-high">Price: High to low</option>
+          <option value="popular">Most popular</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <!-- Results count -->
+  <p class="results-count" aria-live="polite">
+    Showing {{ filteredProducts.length }}
+    {{ filteredProducts.length === 1 ? 'bake' : 'bakes' }}
+  </p>
+
+  <!-- Product grid -->
+  <section class="product-grid" aria-live="polite">
+    @for (product of filteredProducts; track product.id) {
+      <app-product-card [product]="product" (addToBag)="handleAddToBag($event)" />
+    } @empty {
+      <div class="empty-results">
+        <i class="fa-solid fa-bread-slice"></i>
+
+        <h3>No bakes found</h3>
+
+        <p>Try another search or choose a different category.</p>
+      </div>
+    }
+  </section>
+</main>

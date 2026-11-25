@@ -1,0 +1,258 @@
+<main class="checkout-page">
+  <div class="checkout-container">
+    <div class="checkout-heading">
+      <span class="section-label">Almost there</span>
+      <h1>Checkout</h1>
+      <p>Just a few details before we prepare your order.</p>
+    </div>
+
+    @if (cartItems().length > 0) {
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="checkout-layout">
+        <!-- Checkout Form -->
+        <section class="checkout-form-section">
+          <!-- Contact Information -->
+          <div class="checkout-section">
+            <h2>Contact Information</h2>
+
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input
+                type="text"
+                id="fullName"
+                formControlName="fullName"
+                placeholder="Enter your full name"
+              />
+              @if (
+                checkoutForm.controls.fullName.touched &&
+                checkoutForm.controls.fullName.hasError('required')
+              ) {
+                <small class="field-error">Full name is required.</small>
+              }
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  placeholder="you@example.com"
+                />
+                @if (
+                  checkoutForm.controls.email.touched &&
+                  checkoutForm.controls.email.hasError('required')
+                ) {
+                  <small class="field-error">Email address is required.</small>
+                }
+
+                @if (
+                  checkoutForm.controls.email.touched &&
+                  checkoutForm.controls.email.hasError('email')
+                ) {
+                  <small class="field-error">Please enter a valid email address.</small>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  formControlName="phone"
+                  placeholder="Enter your phone number"
+                />
+                @if (
+                  checkoutForm.controls.phone.touched &&
+                  checkoutForm.controls.phone.hasError('required')
+                ) {
+                  <small class="field-error">Phone number is required.</small>
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- Fulfillment Method -->
+          <div class="checkout-section">
+            <h2>How would you like to receive your order?</h2>
+
+            <div class="fulfillment-options">
+              <label class="fulfillment-option">
+                <input type="radio" formControlName="fulfillment" value="delivery" />
+
+                <span class="fulfillment-option-content">
+                  <i class="fa-solid fa-truck"></i>
+
+                  <span>
+                    <strong>Delivery</strong>
+                    <small>Have your order delivered to your door.</small>
+                  </span>
+                </span>
+              </label>
+
+              <label class="fulfillment-option">
+                <input type="radio" formControlName="fulfillment" value="pickup" />
+
+                <span class="fulfillment-option-content">
+                  <i class="fa-solid fa-store"></i>
+
+                  <span>
+                    <strong>Store Pickup</strong>
+                    <small>Collect your order from our bakery.</small>
+                  </span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Delivery Information -->
+          @if (isDelivery) {
+            <div class="checkout-section">
+              <h2>Delivery Information</h2>
+
+              <div class="form-group">
+                <label for="address">Street Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  formControlName="address"
+                  placeholder="Enter your street address"
+                />
+                @if (
+                  checkoutForm.controls.address.touched &&
+                  checkoutForm.controls.address.hasError('required')
+                ) {
+                  <small class="field-error">Street address is required.</small>
+                }
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input
+                    type="text"
+                    id="city"
+                    formControlName="city"
+                    placeholder="Enter your city"
+                  />
+                  @if (
+                    checkoutForm.controls.city.touched &&
+                    checkoutForm.controls.city.hasError('required')
+                  ) {
+                    <small class="field-error">City is required.</small>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label for="postalCode">Postal Code</label>
+                  <input
+                    type="text"
+                    id="postalCode"
+                    formControlName="postalCode"
+                    placeholder="Enter postal code"
+                  />
+                  @if (
+                    checkoutForm.controls.postalCode.touched &&
+                    checkoutForm.controls.postalCode.hasError('required')
+                  ) {
+                    <small class="field-error">Postal code is required.</small>
+                  }
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="instructions">
+                  Delivery Instructions
+                  <span class="optional-label">(Optional)</span>
+                </label>
+
+                <textarea
+                  id="instructions"
+                  formControlName="instructions"
+                  rows="3"
+                  placeholder="Any special delivery instructions?"
+                ></textarea>
+              </div>
+            </div>
+          } @else {
+            <div class="checkout-section pickup-information">
+              <h2>Store Pickup</h2>
+
+              <p>You've selected store pickup. Your delivery address won't be required.</p>
+
+              <p>
+                Pickup instructions and collection details will be provided when your order is
+                confirmed.
+              </p>
+            </div>
+          }
+        </section>
+
+        <!-- Order Summary -->
+        <aside class="checkout-summary">
+          <h2>Your Order</h2>
+
+          <div class="checkout-summary-items">
+            @for (item of cartItems(); track item.product.id) {
+              <div class="checkout-summary-item">
+                <div class="summary-item-image">
+                  <img [src]="item.product.image" [alt]="item.product.name" />
+                </div>
+
+                <div class="summary-item-info">
+                  <h3>{{ item.product.name }}</h3>
+                  <p>Quantity: {{ item.quantity }}</p>
+                </div>
+
+                <span class="summary-item-price">
+                  {{ item.product.price * item.quantity | currency: 'USD' }}
+                </span>
+              </div>
+            }
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-row">
+            <span>Items ({{ totalItems() }})</span>
+            <span>{{ subtotal() | currency: 'USD' }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Delivery</span>
+            <span>Calculated later</span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-total">
+            <span>Subtotal</span>
+            <span>{{ subtotal() | currency: 'USD' }}</span>
+          </div>
+
+          <button type="submit" class="place-order-button">
+            Place Order
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+          <p class="checkout-note">
+            No payment is required at this stage. Your order will be submitted to the bakery.
+          </p>
+        </aside>
+      </form>
+    } @else {
+      <!-- Empty Cart -->
+      <section class="empty-cart">
+        <div class="empty-cart-icon">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </div>
+
+        <h2>Your bag is empty</h2>
+
+        <p>Add some delicious bakery items before proceeding to checkout.</p>
+
+        <a routerLink="/shop" class="shop-now-button"> Explore Our Shop </a>
+      </section>
+    }
+  </div>
+</main>

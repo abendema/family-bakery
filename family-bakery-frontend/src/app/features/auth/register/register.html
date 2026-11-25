@@ -1,0 +1,183 @@
+<main class="auth-main">
+  <section class="auth-card">
+    <!-- Left Side -->
+    <div class="auth-aside">
+      <i class="fa-solid fa-wheat-awn"></i>
+
+      <span class="eyebrow">Become part of the family</span>
+
+      <h1>
+        Good things<br />
+        <em>are worth sharing.</em>
+      </h1>
+
+      <p>Create an account for a smoother way to enjoy your bakery favourites.</p>
+    </div>
+
+    <!-- Registration Form -->
+    <form class="auth-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+      <span class="eyebrow">Join us</span>
+
+      <h2>Create account</h2>
+
+      <p class="form-intro">It only takes a moment.</p>
+
+      <!-- Full Name -->
+      <label
+        [class.invalid]="registerForm.controls.name.invalid && registerForm.controls.name.touched"
+      >
+        Full name
+
+        <input type="text" formControlName="name" placeholder="Your name" autocomplete="name" />
+
+        <small class="field-error">
+          @if (
+            registerForm.controls.name.touched && registerForm.controls.name.hasError('required')
+          ) {
+            Please enter your name.
+          }
+        </small>
+      </label>
+
+      <!-- Email -->
+      <label
+        [class.invalid]="registerForm.controls.email.invalid && registerForm.controls.email.touched"
+      >
+        Email address
+
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+        />
+
+        <small class="field-error">
+          @if (
+            registerForm.controls.email.touched && registerForm.controls.email.hasError('required')
+          ) {
+            Please enter your email address.
+          }
+
+          @if (
+            registerForm.controls.email.touched && registerForm.controls.email.hasError('email')
+          ) {
+            Please enter a valid email address.
+          }
+        </small>
+      </label>
+
+      <!-- Password -->
+      <label
+        [class.invalid]="
+          registerForm.controls.password.invalid && registerForm.controls.password.touched
+        "
+      >
+        Password
+
+        <div class="password-wrap">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="At least 8 characters"
+            autocomplete="new-password"
+          />
+
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePassword()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+          >
+            <i [class]="showPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'"></i>
+          </button>
+        </div>
+
+        <small class="field-error">
+          @if (
+            registerForm.controls.password.touched &&
+            registerForm.controls.password.hasError('required')
+          ) {
+            Please enter a password.
+          }
+
+          @if (
+            registerForm.controls.password.touched &&
+            registerForm.controls.password.hasError('minlength')
+          ) {
+            Password must be at least 8 characters.
+          }
+        </small>
+      </label>
+
+      <!-- Confirm Password -->
+      <label
+        [class.invalid]="
+          (registerForm.controls.confirmPassword.invalid ||
+            registerForm.hasError('passwordMismatch')) &&
+          registerForm.controls.confirmPassword.touched
+        "
+      >
+        Confirm password
+
+        <div class="password-wrap">
+          <input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            formControlName="confirmPassword"
+            placeholder="Enter password again"
+            autocomplete="new-password"
+          />
+
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="toggleConfirmPassword()"
+            [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'"
+          >
+            <i [class]="showConfirmPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'"></i>
+          </button>
+        </div>
+
+        <small class="field-error">
+          @if (
+            registerForm.controls.confirmPassword.touched &&
+            registerForm.controls.confirmPassword.hasError('required')
+          ) {
+            Please confirm your password.
+          }
+
+          @if (
+            registerForm.controls.confirmPassword.touched &&
+            registerForm.hasError('passwordMismatch')
+          ) {
+            Passwords do not match.
+          }
+        </small>
+      </label>
+
+      <!-- Submit -->
+      <button class="button button-primary submit-button" type="submit">
+        Create account
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <p class="form-foot">
+        Already have an account?
+        <a routerLink="/login">Log in</a>
+      </p>
+
+      <p class="info-note">
+        This form validates inputs only. No account is created until a backend is connected.
+      </p>
+
+      <div
+        class="form-message"
+        [class.error]="statusType === 'error'"
+        [class.success]="statusType === 'success'"
+        aria-live="polite"
+      >
+        {{ statusMessage }}
+      </div>
+    </form>
+  </section>
+</main>

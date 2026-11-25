@@ -1,0 +1,37 @@
+<article class="product-card">
+  <a
+    [routerLink]="['/product', product().id]"
+    class="product-image"
+    [attr.aria-label]="'View ' + product().name"
+  >
+    <img [src]="product().image" [alt]="product().name" />
+
+    <span class="product-tag">
+      {{ product().tag }}
+    </span>
+  </a>
+
+  <div class="product-info">
+    <span class="product-category">
+      {{ product().category }}
+    </span>
+
+    <h3>
+      <a [routerLink]="['/product', product().id]">
+        {{ product().name }}
+      </a>
+    </h3>
+
+    <p class="product-description">
+      {{ product().description }}
+    </p>
+
+    <div class="product-card-footer">
+      <span class="product-price">
+        {{ product().price | currency: 'USD' }}
+      </span>
+
+      <button type="button" class="add-to-bag-button" (click)="onAddToBag()">Add to Bag</button>
+    </div>
+  </div>
+</article>
