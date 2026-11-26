@@ -4,15 +4,9 @@ from sqlalchemy.orm import Session, joinedload
 
 from app.database import get_db
 from app.models import Category, Product
-from app.schemas import CategoryRead, ProductRead
+from app.schemas import ProductRead
 
 router = APIRouter(tags=["storefront"])
-
-
-@router.get("/categories", response_model=list[CategoryRead])
-def list_categories(db: Session = Depends(get_db)):
-    """Return every product category."""
-    return db.scalars(select(Category).order_by(Category.name)).all()
 
 
 @router.get("/products", response_model=list[ProductRead])

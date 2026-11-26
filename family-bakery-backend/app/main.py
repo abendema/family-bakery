@@ -4,7 +4,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.routers import storefront
+from app.routers import categories, products
 
 app = FastAPI(title="Family Bakery API")
 
@@ -17,7 +17,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(storefront.router)
+app.include_router(categories.router)
+
+app.include_router(products.router)
 
 
 # Test Root endpoint (/)
