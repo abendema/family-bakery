@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { Product, ProductService } from '../services/product';
@@ -11,21 +12,45 @@ import { Cart } from '../services/cart';
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
-export class ProductDetails {
+export class ProductDetails implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
   private cartService = inject(Cart);
 
-  product: Product | undefined;
+  readonly product = signal<Product | null>(null);
+
+  readonly loading = signal(true);
+
+  readonly notFound = signal(false);
+
+  readonly error = signal<string | null>(null);
 
   quantity = 1;
 
-  constructor() {
-    const productId = this.route.snapshot.paramMap.get('id');
+  ngOnInit(): void {
+    const slug = this.route.snapshot.paramMap.get('slug');
 
-    if (productId) {
-      this.product = this.productService.getProductById(productId);
+    if (!slug) {
+      this.loading.set(false);
+      this.notFound.set(true);
+      return;
     }
+
+    this.productService.getProductBySlug(slug).subscribe({
+      next: (product) => {
+        this.product.set(product);
+        this.loading.set(false);
+      },
+      error: (err: unknown) => {
+        this.loading.set(false);
+
+        if (err instanceof HttpErrorResponse && err.status === 404) {
+          this.notFound.set(true);
+        } else {
+          this.error.set('We could not load this product. Please try again.');
+        }
+      },
+    });
   }
 
   increaseQuantity(): void {
@@ -52,10 +77,12 @@ export class ProductDetails {
   }
 
   addToBag(): void {
-    if (!this.product) {
+    const product = this.product();
+
+    if (!product) {
       return;
     }
 
-    this.cartService.addToCart(this.product, this.quantity);
+    this.cartService.addToCart(product, this.quantity);
   }
 }

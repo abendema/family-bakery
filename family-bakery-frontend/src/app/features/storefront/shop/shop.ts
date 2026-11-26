@@ -1,13 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductCard } from '../products/product-card/product-card';
 import { Cart } from '../services/cart';
 
-import { Product, ProductService } from '../services/product';
-
-type ProductCategory = 'all' | Product['category'];
+import { Category, Product, ProductService } from '../services/product';
 
 type SortOption = 'featured' | 'price-low' | 'price-high' | 'popular';
+
+const ALL_CATEGORY = 'all';
 
 @Component({
   selector: 'app-shop',
@@ -15,43 +15,37 @@ type SortOption = 'featured' | 'price-low' | 'price-high' | 'popular';
   templateUrl: './shop.html',
   styleUrl: './shop.css',
 })
-export class Shop {
+export class Shop implements OnInit {
   private productService = inject(ProductService);
   private route = inject(ActivatedRoute);
   private cartService = inject(Cart);
 
-  products: Product[] = this.productService.getProducts();
+  private readonly products = signal<Product[]>([]);
 
-  selectedCategory: ProductCategory = 'all';
+  readonly categories = signal<Category[]>([]);
 
-  searchTerm = '';
+  readonly loading = signal(true);
 
-  sortOption: SortOption = 'featured';
+  readonly error = signal<string | null>(null);
 
-  constructor() {
-    const category = this.route.snapshot.queryParamMap.get('category');
+  readonly selectedCategory = signal<string>(ALL_CATEGORY);
 
-    if (
-      category === 'breads' ||
-      category === 'bagels' ||
-      category === 'cookies' ||
-      category === 'pastries'
-    ) {
-      this.selectedCategory = category;
-    }
-  }
+  readonly searchTerm = signal('');
 
-  get filteredProducts(): Product[] {
-    let result = [...this.products];
+  readonly sortOption = signal<SortOption>('featured');
+
+  readonly filteredProducts = computed(() => {
+    const category = this.selectedCategory();
+    const term = this.searchTerm().trim().toLowerCase();
+
+    let result = this.products();
 
     // Filter by category
-    if (this.selectedCategory !== 'all') {
-      result = result.filter((product) => product.category === this.selectedCategory);
+    if (category !== ALL_CATEGORY) {
+      result = result.filter((product) => product.category === category);
     }
 
     // Search products
-    const term = this.searchTerm.trim().toLowerCase();
-
     if (term) {
       result = result.filter((product) =>
         (product.name + ' ' + product.description + ' ' + product.category)
@@ -60,40 +54,77 @@ export class Shop {
       );
     }
 
-    // Sort products
-    switch (this.sortOption) {
+    // Sort products without mutating the filtered collection order
+    const sorted = [...result];
+
+    switch (this.sortOption()) {
       case 'price-low':
-        result.sort((a, b) => a.price - b.price);
+        sorted.sort((a, b) => a.price - b.price);
         break;
 
       case 'price-high':
-        result.sort((a, b) => b.price - a.price);
+        sorted.sort((a, b) => b.price - a.price);
         break;
 
       case 'popular':
       case 'featured':
-        result.sort((a, b) => b.popularity - a.popularity);
+        sorted.sort((a, b) => b.popularity - a.popularity);
         break;
     }
 
-    return result;
+    return sorted;
+  });
+
+  ngOnInit(): void {
+    this.loadCategories();
+    this.loadProducts();
   }
 
-  selectCategory(category: ProductCategory): void {
-    this.selectedCategory = category;
+  selectCategory(category: string): void {
+    this.selectedCategory.set(category);
   }
 
   onSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
-    this.searchTerm = input.value;
+    this.searchTerm.set(input.value);
   }
 
   onSortChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
-    this.sortOption = select.value as SortOption;
+    this.sortOption.set(select.value as SortOption);
   }
 
   handleAddToBag(product: Product): void {
     this.cartService.addToCart(product);
+  }
+
+  private loadCategories(): void {
+    this.productService.getCategories().subscribe({
+      next: (categories) => {
+        this.categories.set(categories);
+        this.applyCategoryFromQuery(categories);
+      },
+    });
+  }
+
+  private loadProducts(): void {
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products.set(products);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set('We could not load the products. Please try again.');
+        this.loading.set(false);
+      },
+    });
+  }
+
+  private applyCategoryFromQuery(categories: Category[]): void {
+    const category = this.route.snapshot.queryParamMap.get('category');
+
+    if (category && categories.some((known) => known.slug === category)) {
+      this.selectedCategory.set(category);
+    }
   }
 }

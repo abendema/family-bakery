@@ -1,6 +1,6 @@
 <article class="product-card">
   <a
-    [routerLink]="['/product', product().id]"
+    [routerLink]="['/product', product().slug]"
     class="product-image"
     [attr.aria-label]="'View ' + product().name"
   >
@@ -17,7 +17,7 @@
     </span>
 
     <h3>
-      <a [routerLink]="['/product', product().id]">
+      <a [routerLink]="['/product', product().slug]">
         {{ product().name }}
       </a>
     </h3>

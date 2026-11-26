@@ -19,15 +19,15 @@ export class CartComponent {
 
   subtotal = this.cartService.subtotal;
 
-  increaseQuantity(productId: string, currentQuantity: number): void {
+  increaseQuantity(productId: number, currentQuantity: number): void {
     this.cartService.updateQuantity(productId, currentQuantity + 1);
   }
 
-  decreaseQuantity(productId: string, currentQuantity: number): void {
+  decreaseQuantity(productId: number, currentQuantity: number): void {
     this.cartService.updateQuantity(productId, currentQuantity - 1);
   }
 
-  removeItem(productId: string): void {
+  removeItem(productId: number): void {
     this.cartService.removeFromCart(productId);
   }
 

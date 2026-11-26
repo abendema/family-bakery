@@ -12,7 +12,7 @@ export interface CartItem {
 export class Cart {
   private readonly storageKey = 'family-bakery-cart';
 
-  private readonly cartItems = signal<CartItem[]>(this.loadCart());
+  private readonly cartItems = signal<CartItem[]>([]);
 
   // Read only cart information for components
   items = this.cartItems.asReadonly();
@@ -24,6 +24,10 @@ export class Cart {
   subtotal = computed(() =>
     this.cartItems().reduce((total, item) => total + item.product.price * item.quantity, 0),
   );
+
+  constructor() {
+    this.cartItems.set(this.readStoredCart());
+  }
 
   // Add a product to the cart
   addToCart(product: Product, quantity: number = 1): void {
@@ -47,14 +51,14 @@ export class Cart {
   }
 
   // Remove a product completely
-  removeFromCart(productId: string): void {
+  removeFromCart(productId: number): void {
     this.cartItems.update((items) => items.filter((item) => item.product.id !== productId));
 
     this.saveCart();
   }
 
   // Update the quantity of a product
-  updateQuantity(productId: string, quantity: number): void {
+  updateQuantity(productId: number, quantity: number): void {
     if (quantity <= 0) {
       this.removeFromCart(productId);
       return;
@@ -73,12 +77,18 @@ export class Cart {
     this.saveCart();
   }
 
-  // Load previously saved cart data
-  private loadCart(): CartItem[] {
+  // Read the persisted cart
+  private readStoredCart(): CartItem[] {
     try {
       const storedCart = localStorage.getItem(this.storageKey);
 
-      return storedCart ? (JSON.parse(storedCart) as CartItem[]) : [];
+      if (!storedCart) {
+        return [];
+      }
+
+      const parsed: unknown = JSON.parse(storedCart);
+
+      return Array.isArray(parsed) ? (parsed as CartItem[]) : [];
     } catch {
       return [];
     }

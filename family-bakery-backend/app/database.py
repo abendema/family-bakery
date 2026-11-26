@@ -23,4 +23,13 @@ SessionLocal = sessionmaker(
 )
 
 # Base class for database models
-Base = declarative_base() 
+Base = declarative_base()
+
+
+# FastAPI dependency that provides a database session per request
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

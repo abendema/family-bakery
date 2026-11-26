@@ -1,4 +1,4 @@
-@if (product) {
+@if (product(); as product) {
   <main class="product-details-page">
     <div class="product-details-container">
       <!-- Back to Shop -->
@@ -80,13 +80,31 @@
       </div>
     </div>
   </main>
-} @else {
+} @else if (loading()) {
+  <main class="product-not-found">
+    <i class="fa-solid fa-spinner fa-spin"></i>
+
+    <h1>Loading product</h1>
+
+    <p>Fetching the details from our bakery...</p>
+  </main>
+} @else if (notFound()) {
   <main class="product-not-found">
     <i class="fa-solid fa-bread-slice"></i>
 
     <h1>Product Not Found</h1>
 
     <p>Sorry, we couldn't find the product you're looking for.</p>
+
+    <a routerLink="/shop" class="back-to-shop-button"> Return to Shop </a>
+  </main>
+} @else {
+  <main class="product-not-found">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+
+    <h1>Something went wrong</h1>
+
+    <p>{{ error() }}</p>
 
     <a routerLink="/shop" class="back-to-shop-button"> Return to Shop </a>
   </main>
